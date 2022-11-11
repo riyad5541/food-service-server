@@ -67,14 +67,14 @@ async function run(){
                 }
             }
             const cursor = addServiceCollection.find(query);
-            const reviews = await cursor.toArray();
-            res.send(reviews);
+            const addServices = await cursor.toArray();
+            res.send(addServices);
         })
-        
+
 
         app.post('/addServices',async(req, res) =>{
-            const review = req.body;
-            const result = await addServiceCollection.insertOne(review);
+            const addService = req.body;
+            const result = await addServiceCollection.insertOne(addService);
             res.send(result);
         })
 

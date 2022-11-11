@@ -19,6 +19,7 @@ async function run(){
     try{
         const serviceCollection = client.db('aarFood').collection('services');
         const reviewCollection = client.db('aarFood').collection('reviews');
+        const addServiceCollection = client.db('aarFood').collection('addservices');
         app.get('/services', async(req, res) =>{
             const query = {}
             const cursor = serviceCollection.find(query);
@@ -55,6 +56,25 @@ async function run(){
         app.post('/reviews',async(req, res) =>{
             const review = req.body;
             const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        })
+
+        app.get('/addServices', async(req, res) =>{
+            const query ={};
+            if(req.query.email){
+                query = {
+                    email:req.query.email
+                }
+            }
+            const cursor = addServiceCollection.find(query);
+            const reviews = await cursor.toArray();
+            res.send(reviews);
+        })
+        
+
+        app.post('/addServices',async(req, res) =>{
+            const review = req.body;
+            const result = await addServiceCollection.insertOne(review);
             res.send(result);
         })
 
